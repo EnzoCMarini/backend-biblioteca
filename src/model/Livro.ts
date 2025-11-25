@@ -1,3 +1,4 @@
+import type { LivroDTO } from "../interface/LivroDTO.js";
 import { DatabaseModel } from "./DatabaseModel.js";
 
 const database = new DatabaseModel().pool;
@@ -150,6 +151,39 @@ class Livro {
             return null;
         }
     }
+
+    static async cadastrarLivro(aluno: LivroDTO): Promise<boolean> {
+            try {
+                const queryInsertAluno = `INSERT INTO Livro (titulo, autor, editora, ano_publicacao, isbn, quant_total, quant_disponivel, valor_aquisicao, status_livro_emprestado) 
+                                        VALUES
+                                        ($1, $2, $3, $4, $5, $6, %7, %8, %9);
+                                        RETURNING id_livro;`;
+    
+                const respostaBD = await database.query(queryInsertAluno, [
+                    aluno.titulo,
+                    aluno.autor,
+                    aluno.editora,
+                    aluno.ano_Publicacao,
+                    aluno.isbn,
+                    aluno.quant_Total,
+                    aluno.quant_Disponivel,
+                    aluno.valor_Aquisicao,
+                    aluno.status_Livro_Emprestado
+                ]);
+    
+                if (respostaBD.rows.length > 0) {
+                    console.info(`Livro cadastrado com sucesso. ID: ${respostaBD.rows[0].id_livro}`);
+    
+                    return true;
+                }
+    
+                return false;
+            } catch (error) {
+                console.error(`Erro na consulta ao banco de dados. ${error}`);
+    
+                return false;
+            }
+        }
 }
 
 export default Livro;

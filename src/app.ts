@@ -13,7 +13,3 @@ new DatabaseModel().testeConexao().then((resbd) => {
         console.log('Não foi possível conectar ao banco de dados');
     }
 })
- 
-server.listen(port, () => {
-    console.log(`Servidor executando no endereço: http://local:${port}`);
-})

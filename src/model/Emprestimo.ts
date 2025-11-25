@@ -1,3 +1,4 @@
+import type { EmprestimoDTO } from "../interface/EmprestimoDTO.js";
 import { DatabaseModel } from "./DatabaseModel.js";
 
 const database = new DatabaseModel().pool;
@@ -12,10 +13,14 @@ class Emprestimo {
     private status_Emprestimo: string;
 
     constructor(
+        _idAluno: number,
+        _idLivro: number,
         _data_Emprestimo: Date,
         _data_Devolucao: Date,
         _status_Emprestimo: string
     ) {
+        this.idAluno = _idAluno;
+        this.idLivro = _idLivro;
         this.data_Emprestimo = _data_Emprestimo;
         this.data_Devolucao = _data_Devolucao;
         this.status_Emprestimo = _status_Emprestimo;
