@@ -3,11 +3,11 @@ export interface LivroDTO{
     titulo: string,
     autor: string,
     editora: string,
-    ano_Publicacao: string,
+    anoPublicacao: string,
     isbn: string,
-    quant_Total: number,
-    quant_Disponivel: number,
-    valor_Aquisicao: number,
-    status_Livro_Emprestado: string,
+    quantTotal: number,
+    quantDisponivel: number,
+    valorAquisicao: number,
+    statusLivroEmprestado: string,
     situacao?: boolean
 }

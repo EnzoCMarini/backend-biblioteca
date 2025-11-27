@@ -32,6 +32,27 @@ class LivroController extends Livro {
             return res.status(500).json({ mensagem: "Não foi possível inserir o livro" });
         }
     }
+
+    static async livro(req: Request, res: Response): Promise<Response> {
+        try {
+            const idLivro: number = parseInt(req.params.idLivro as string);
+
+            if (isNaN(idLivro) || idLivro <= 0) {
+                return res.status(400).json({ mensagem: "ID inválido." });
+            }
+
+            const respostaModelo = await Livro.listarLivro(idLivro);
+
+            if (respostaModelo === null) {
+                return res.status(200).json({ mensagem: "Nenhum livro encontrado com o ID fornecido." });
+            }
+
+            return res.status(200).json(respostaModelo);
+        } catch (error) {
+            console.error(`Erro ao acesso o modelo. ${error}`);
+            return res.status(500).json({ mensagem: "Não foi possível recuperar o livro." });
+        }
+    }
 }
 
 export default LivroController;

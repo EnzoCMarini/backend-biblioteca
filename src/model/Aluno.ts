@@ -11,7 +11,7 @@ class Aluno {
     private ra: string;
     private nome: string;
     private sobrenome: string;
-    private data_Nascimento: Date;
+    private data_nascimento: Date;
     private endereco: string;
     private email: string;
     private celular: string;
@@ -20,7 +20,7 @@ class Aluno {
         _ra: string,
         _nome: string,
         _sobrenome: string,
-        _data_Nascimento: Date,
+        _data_nascimento: Date,
         _endereco: string,
         _email: string,
         _celular: string
@@ -28,7 +28,7 @@ class Aluno {
         this.ra = _ra;
         this.nome = _nome;
         this.sobrenome = _sobrenome;
-        this.data_Nascimento = _data_Nascimento;
+        this.data_nascimento = _data_nascimento;
         this.endereco = _endereco;
         this.email = _email;
         this.celular = _celular;
@@ -67,11 +67,11 @@ class Aluno {
     }
 
     public getData_Nascimento(): Date {
-        return this.data_Nascimento;
+        return this.data_nascimento;
     }
 
-    public setData_Nascimento(data_Nascimento: Date): void {
-        this.data_Nascimento = data_Nascimento;
+    public setData_Nascimento(data_nascimento: Date): void {
+        this.data_nascimento = data_nascimento;
     }
 
 
@@ -142,7 +142,7 @@ class Aluno {
                 aluno.ra,
                 aluno.nome.toUpperCase(),
                 aluno.sobrenome,
-                aluno.data_Nascimentos,
+                aluno.dataNascimento,
                 aluno.endereco,
                 aluno.email,
                 aluno.celular

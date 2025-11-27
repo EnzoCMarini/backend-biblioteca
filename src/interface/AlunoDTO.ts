@@ -3,7 +3,7 @@ export interface AlunoDTO {
     ra: string,
     nome: string,
     sobrenome: string,
-    data_Nascimentos: Date,
+    dataNascimento: Date,
     endereco: string,
     email: string,
     celular: string,

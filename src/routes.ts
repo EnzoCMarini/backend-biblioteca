@@ -14,13 +14,12 @@ router.get("/api/aluno", AlunoController.todos);
 router.post("/api/aluno", AlunoController.novo);
 router.get("/api/aluno/:idAluno", AlunoController.aluno);
 
-/*router.get("/api/livro", LivroController.todos);
+router.get("/api/livro", LivroController.todos);
 router.post("/api/livro", LivroController.novo);
 router.get("/api/livro/:idLivro", LivroController.livro);
 
 router.get("/api/emprestimo", EmprestimoController.todos);
 router.post("/api/emprestimo", EmprestimoController.novo);
 router.get("/api/emprestimo/:idEmprestimo", EmprestimoController.emprestimo);
-*/
 
 export { router };

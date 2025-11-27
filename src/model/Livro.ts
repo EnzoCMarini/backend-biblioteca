@@ -152,38 +152,68 @@ class Livro {
         }
     }
 
-    static async cadastrarLivro(aluno: LivroDTO): Promise<boolean> {
-            try {
-                const queryInsertAluno = `INSERT INTO Livro (titulo, autor, editora, ano_publicacao, isbn, quant_total, quant_disponivel, valor_aquisicao, status_livro_emprestado) 
+    static async cadastrarLivro(livro: LivroDTO): Promise<boolean> {
+        try {
+            const queryInsertLivro = `INSERT INTO Livro (titulo, autor, editora, ano_publicacao, isbn, quant_total, quant_disponivel, valor_aquisicao, status_livro_emprestado) 
                                         VALUES
                                         ($1, $2, $3, $4, $5, $6, %7, %8, %9);
                                         RETURNING id_livro;`;
-    
-                const respostaBD = await database.query(queryInsertAluno, [
-                    aluno.titulo,
-                    aluno.autor,
-                    aluno.editora,
-                    aluno.ano_Publicacao,
-                    aluno.isbn,
-                    aluno.quant_Total,
-                    aluno.quant_Disponivel,
-                    aluno.valor_Aquisicao,
-                    aluno.status_Livro_Emprestado
-                ]);
-    
-                if (respostaBD.rows.length > 0) {
-                    console.info(`Livro cadastrado com sucesso. ID: ${respostaBD.rows[0].id_livro}`);
-    
-                    return true;
-                }
-    
-                return false;
-            } catch (error) {
-                console.error(`Erro na consulta ao banco de dados. ${error}`);
-    
-                return false;
+
+            const respostaBD = await database.query(queryInsertLivro, [
+                livro.titulo,
+                livro.autor,
+                livro.editora,
+                livro.anoPublicacao,
+                livro.isbn,
+                livro.quantTotal,
+                livro.quantDisponivel,
+                livro.valorAquisicao,
+                livro.statusLivroEmprestado
+            ]);
+
+            if (respostaBD.rows.length > 0) {
+                console.info(`Livro cadastrado com sucesso. ID: ${respostaBD.rows[0].id_livro}`);
+
+                return true;
             }
+
+            return false;
+        } catch (error) {
+            console.error(`Erro na consulta ao banco de dados. ${error}`);
+
+            return false;
         }
+    }
+
+    static async listarLivro(idLivro: number): Promise<Livro | null> {
+        try {
+            const querySelectLivro = `SELECT * FROM Livro WHERE id_livro=$1;`;
+
+            const respostaBD = await database.query(querySelectLivro, [idLivro]);
+
+            if (respostaBD.rowCount != 0) {
+                const livro: Livro = new Livro(
+                    respostaBD.rows[0].titulo,
+                    respostaBD.rows[0].autor,
+                    respostaBD.rows[0].editora,
+                    respostaBD.rows[0].ano_Publicacao,
+                    respostaBD.rows[0].isbn,
+                    respostaBD.rows[0].quant_Total,
+                    respostaBD.rows[0].quant_Disponivel,
+                    respostaBD.rows[0].valor_Aquisicao,
+                    respostaBD.rows[0].status_Livro_Emprestado
+                );
+                livro.setIdLivro(respostaBD.rows[0].id_livro);
+
+                return livro;
+            }
+
+            return null;
+        } catch (error) {
+            console.error(`Erro ao buscar cliente no banco de dados. ${error}`);
+            return null;
+        }
+    }
 }
 
 export default Livro;
