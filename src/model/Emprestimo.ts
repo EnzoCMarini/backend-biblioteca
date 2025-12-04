@@ -86,9 +86,9 @@ class Emprestimo {
                 const novoEmprestimo: Emprestimo = new Emprestimo(
                     emprestimoBD.id_aluno,
                     emprestimoBD.id_livro,
-                    emprestimoBD.data_Emprestimo,
-                    emprestimoBD.data_Devolucao,
-                    emprestimoBD.status_Emprestimo
+                    emprestimoBD.data_emprestimo,
+                    emprestimoBD.data_devolucao,
+                    emprestimoBD.status_emprestimo
                 );
 
                 novoEmprestimo.setIdEmprestimo(emprestimoBD.id_emprestimo);
@@ -108,7 +108,7 @@ class Emprestimo {
         try {
             const queryInsertEmprestimo = `INSERT INTO Emprestimo (id_aluno, id_livro, data_emprestimo, data_devolucao, status_emprestimo) 
                                             VALUES
-                                            ($1, $2, $3, $4, $5);
+                                            ($1, $2, $3, $4, $5)
                                             RETURNING id_livro;`;
 
             const respostaBD = await database.query(queryInsertEmprestimo, [

@@ -131,12 +131,12 @@ class Livro {
                     livroBD.titulo,
                     livroBD.autor,
                     livroBD.editora,
-                    livroBD.ano_Publicacao,
+                    livroBD.ano_publicacao,
                     livroBD.isbn,
-                    livroBD.quant_Total,
-                    livroBD.quant_Disponivel,
-                    livroBD.valor_Aquisicao,
-                    livroBD.status_Livro_Emprestado
+                    livroBD.quant_total,
+                    livroBD.quant_disponivel,
+                    livroBD.valor_aquisicao,
+                    livroBD.status_livro_emprestado
                 );
 
                 novoLivro.setIdLivro(livroBD.id_livro);
@@ -155,9 +155,9 @@ class Livro {
     static async cadastrarLivro(livro: LivroDTO): Promise<boolean> {
         try {
             const queryInsertLivro = `INSERT INTO Livro (titulo, autor, editora, ano_publicacao, isbn, quant_total, quant_disponivel, valor_aquisicao, status_livro_emprestado) 
-                                        VALUES
-                                        ($1, $2, $3, $4, $5, $6, %7, %8, %9);
-                                        RETURNING id_livro;`;
+                                      VALUES 
+                                      ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+                                      RETURNING id_livro;`;
 
             const respostaBD = await database.query(queryInsertLivro, [
                 livro.titulo,

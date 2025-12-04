@@ -1,7 +1,5 @@
-import type { promises } from "dns";
 import type { AlunoDTO } from "../interface/AlunoDTO.js";
 import { DatabaseModel } from "./DatabaseModel.js";
-import { addListener } from "process";
 
 const database = new DatabaseModel().pool;
 
@@ -135,11 +133,10 @@ class Aluno {
         try {
             const queryInsertAluno = `INSERT INTO Aluno (nome, sobrenome, data_nascimento, endereco, email, celular) 
                                     VALUES
-                                    ($1, $2, $3, $4, $5, $6);
+                                    ($1, $2, $3, $4, $5, $6)
                                     RETURNING id_aluno;`;
 
             const respostaBD = await database.query(queryInsertAluno, [
-                aluno.ra,
                 aluno.nome.toUpperCase(),
                 aluno.sobrenome,
                 aluno.dataNascimento,
